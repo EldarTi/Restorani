@@ -53,30 +53,30 @@ grid-area: sidebar_right;
 
 .footer{
 
-background-color:#2196F3;
+background-color:blue;
 padding: 10px;
 display: grid;
 	grid-template-columns:50px 50px 50px 50px;
 	justify-content: space-around;
 	grid-gap: 20px;
-	background-color: #2196F3;
+	background-color:blue;
 	padding: 10px;
 	justify-items: stretch;	
 
 }
 
-.footer a{
-	border-color: blue;
+/*.footer a{
+	border-color: white;
 	border-style: solid;
 	background-color: green;
 	width: 10%;
 	padding: 1px;
 	border-radius: 10px;
-	color: white;
+	color: blue;
 	justify-self: stretch;
 
 }
-
+*/
 .footer > div{
 	background-color: blue;
 }
