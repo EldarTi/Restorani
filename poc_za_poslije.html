@@ -12,7 +12,7 @@
     
     <style>
         body {
-            background-color: #bed9f5;
+            background-color: #71b6fc;
             font-family: Arial, sans-serif;
         }
         .sadrzaj {
@@ -27,7 +27,7 @@
         }
         .header {
             grid-area: header;
-            background-color: #65abf5;
+            background-color: #343a40;
             color: white;
             display: flex;
             justify-content: space-between;
@@ -59,27 +59,11 @@
         }
         .footer {
             grid-area: footer;
-            display: flex;
-            justify-content: center; /* Centriranje elemenata horizontalno */
-            align-items: center;
-            padding: 20px;
-            background-color: #65abf5;
-            color: white;
-        }
-        .footer-content {
-            display: flex;
-            gap: 30px; /* Razmak između linkova */
-        }
-        .footer-content .nav-link {
-            text-decoration: none;
-            color: white;
-        }
-        .footer-content .nav-link:hover {
-            text-decoration: underline;
+            text-align: center;
         }
         .social-icons img {
             width: 30px;
-            margin: 0 10px;
+            margin: 0 5px;
         }
         .nav-link {
             text-decoration: none;
@@ -87,13 +71,6 @@
         }
         .nav-link:hover {
             text-decoration: underline;
-        }
-        /* Add custom styling for sorting */
-        .filter-group {
-            margin-bottom: 20px;
-        }
-        .filter-group label {
-            font-weight: bold;
         }
         #map {
             height: 300px;
@@ -107,12 +84,7 @@
 <div class="sadrzaj">
     <!-- Header -->
     <div class="header">
-        <div class="logo">
-            <!-- Ubacivanje slike u logo -->
-            <a href="pocetna.html">
-                <img src="slike/logo.png" alt="Logo" style="height: 40px;">
-            </a>
-        </div>
+        <div class="logo">LOGO</div>
         <input type="text" class="search-bar form-control w-50" placeholder="Pretraga...">
         <div class="user-profile">
             <a href="prijava.html" class="text-white">Prijava</a>
@@ -187,17 +159,10 @@
         <h1>Pronađi restoran po svom ukusu!</h1>
         <input type="text" class="form-control mb-3" placeholder="Pretraga restorana...">
         
-        <h2>Sponzorirano</h2>
-        <div class="border p-3 mb-3">Slika, ime, recenzija, lokacija</div>
-
-        <h2>Najbolje ocijenjeno</h2>
-        <div class="border p-3 mb-3">Restoran 1</div>
-
-        <h2>Najbolja lokacija</h2>
-        <div class="border p-3 mb-3">Restoran 2</div>
-
-        <h2>Najpovoljnije</h2>
-        <div class="border p-3 mb-3">Restoran 3</div>
+        <h2>Restorani</h2>
+        <div id="restorani-list">
+            <!-- Restorani će biti dinamički dodani ovdje -->
+        </div>
     </div>
 
     <!-- Right Sidebar with Map -->
@@ -209,16 +174,36 @@
 
     <!-- Footer -->
     <div class="footer">
-        <div class="footer-content">
-            <a class="nav-link" href="kontakt_telefon.html">Kontakt telefon</a>
-         <a class="nav-link" href="kontakt_email.html">Kontakt email</a>
-         <a class="nav-link" href="društvene_mreže.html">Društvene mreže</a>
+        <a class="nav-link" href="kontakt_telefon.html">Kontakt telefon</a> |
+        <a class="nav-link" href="kontakt_email.html">Kontakt email</a> |
+        <a class="nav-link" href="društvene_mreže.html">Društvene mreže</a>
+        
+        <div class="social-icons mt-3">
+            <img src="facebook.png" alt="Facebook">
+            <img src="instagram.png" alt="Instagram">
+            <img src="twitter.png" alt="Twitter">
+            <img src="viber.png" alt="Viber">
         </div>
     </div>
 </div>
 
-<!-- Modal za Kontakt telefon -->
-<!-- Modal kodovi ostaju isti kao u originalu -->
+<!-- Modal for Restaurant Details -->
+<div class="modal fade" id="restoranModal" tabindex="-1" aria-labelledby="restoranModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="restoranModalLabel">Detalji o restoranu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3 id="modal-naziv"></h3>
+        <p><strong>Tip:</strong> <span id="modal-tip"></span></p>
+        <p><strong>Adresa:</strong> <span id="modal-adresa"></span></p>
+        <p><strong>Opis:</strong> <span id="modal-opis"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -232,10 +217,39 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Dodaj marker
-    L.marker([43.8486, 18.3564]).addTo(map)
-        .bindPopup('Sarajevo')
-        .openPopup();
+    // Podaci o restoranima
+    var restorani = [
+        { naziv: "Restoran 1", tip: "Restoran", adresa: "Sarajevo, BBI Centar", lat: 43.8486, lon: 18.3564, opis: "Restoran sa tradicionalnom kuhinjom." },
+        { naziv: "Restoran 2", tip: "Kafić", adresa: "Sarajevo, Baščaršija", lat: 43.8496, lon: 18.3574, opis: "Savršen za uživanje u kafi." },
+        { naziv: "Restoran 3", tip: "Pekara", adresa: "Sarajevo, Avlija", lat: 43.8506, lon: 18.3584, opis: "Pekara sa svježim pecivima." }
+    ];
+
+    // Dodaj restorane u listu u glavnom sadržaju
+    var restoraniListDiv = document.getElementById("restorani-list");
+    restorani.forEach(function(restoran) {
+        var restoranDiv = document.createElement("div");
+        restoranDiv.className = "border p-3 mb-3";
+        restoranDiv.innerHTML = "<h3>" + restoran.naziv + "</h3><p><strong>Tip:</strong> " + restoran.tip + "</p><p><strong>Adresa:</strong> " + restoran.adresa + "</p><p><strong>Opis:</strong> " + restoran.opis + "</p>";
+
+        // Dodavanje događaja za klik na restoran
+        restoranDiv.addEventListener("click", function() {
+            // Postavljanje podataka u modalni prozor
+            document.getElementById("modal-naziv").innerText = restoran.naziv;
+            document.getElementById("modal-tip").innerText = restoran.tip;
+            document.getElementById("modal-adresa").innerText = restoran.adresa;
+            document.getElementById("modal-opis").innerText = restoran.opis;
+
+            // Otvaranje modala
+            var modal = new bootstrap.Modal(document.getElementById('restoranModal'));
+            modal.show();
+        });
+
+        restoraniListDiv.appendChild(restoranDiv);
+
+        // Dodaj marker na mapu
+        L.marker([restoran.lat, restoran.lon]).addTo(map)
+            .bindPopup("<b>" + restoran.naziv + "</b><br>" + restoran.opis);
+    });
 </script>
 
 </body>

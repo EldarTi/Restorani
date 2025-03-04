@@ -12,7 +12,7 @@
     
     <style>
         body {
-            background-color: #bed9f5;
+            background-color: #71b6fc;
             font-family: Arial, sans-serif;
         }
         .sadrzaj {
@@ -27,7 +27,7 @@
         }
         .header {
             grid-area: header;
-            background-color: #65abf5;
+            background-color: #343a40;
             color: white;
             display: flex;
             justify-content: space-between;
@@ -63,7 +63,7 @@
             justify-content: center; /* Centriranje elemenata horizontalno */
             align-items: center;
             padding: 20px;
-            background-color: #65abf5;
+            background-color: #343a40;
             color: white;
         }
         .footer-content {
@@ -210,9 +210,10 @@
     <!-- Footer -->
     <div class="footer">
         <div class="footer-content">
-            <a class="nav-link" href="kontakt_telefon.html">Kontakt telefon</a>
-         <a class="nav-link" href="kontakt_email.html">Kontakt email</a>
-         <a class="nav-link" href="društvene_mreže.html">Društvene mreže</a>
+            <!-- Linkovi sa modalama -->
+            <a class="nav-link" data-bs-toggle="modal" href="#kontaktTelefon">Kontakt telefon</a>
+            <a class="nav-link" data-bs-toggle="modal" href="#kontaktEmail">Kontakt email</a>
+            <a class="nav-link" data-bs-toggle="modal" href="#društveneMreže">Društvene mreže</a>
         </div>
     </div>
 </div>
