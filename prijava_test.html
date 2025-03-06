@@ -1,96 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
 <head>
-    <title>Registracija i Prijava</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prijava i Registracija</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
+            background-color: #bed9f5;
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
             margin: 0;
-            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        header, footer {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-        .container {
-            width: 300px;
+        .sadrzaj {
+            display: grid;
+            grid-template-areas:
+                'header'
+                'navbar'
+                'form'
+                'footer';
+            grid-gap: 10px;
+            width: 100%;
+            max-width: 1200px;
             padding: 20px;
-            background-color: #fff;
-            margin: 20px auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
         }
-        h2 {
-            text-align: center;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
+        .header {
+            grid-area: header;
+            background-color: #65abf5;
             color: white;
-            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
             border-radius: 5px;
-            cursor: pointer;
         }
-        button:hover {
-            background-color: #0056b3;
+        .navbar {
+            grid-area: navbar;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
         }
-        .toggle {
-            text-align: center;
-            margin-top: 10px;
+        .nav-link {
+            text-decoration: none;
+            color: #495057;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        .logo img {
+            height: 40px;
+        }
+        .search-bar {
+            margin-left: 15px;
+        }
+        .form-container {
+            grid-area: form;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            justify-self: center; /* Centriranje horizontalno */
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #65abf5;
+        }
+        .btn-primary {
+            background-color: #65abf5;
+            border-color: #65abf5;
+        }
+        .btn-primary:hover {
+            background-color: #549dd4;
+        }
+        .footer {
+            grid-area: footer;
+            background-color: #65abf5;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .footer-content {
+            display: flex;
+            gap: 30px;
+        }
+        .footer-content .nav-link {
+            text-decoration: none;
+            color: white;
+        }
+        .footer-content .nav-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Dobrodošli</h1>
-    </header>
-    
-    <div class="container">
-        <h2 id="form-title">Prijava</h2>
-        <input type="text" id="username" placeholder="Korisničko ime">
-        <input type="password" id="password" placeholder="Lozinka">
-        <input type="email" id="email" placeholder="Email" style="display: none;">
-        <button id="submit-btn">Prijavi se</button>
-        <div class="toggle">
-            <a href="#" id="toggle-link">Nemaš račun? Registriraj se</a>
+
+<div class="sadrzaj">
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <a href="pocetna.html">
+                <img src="slike/logo.png" alt="Logo">
+            </a>
+        </div>
+        <input type="text" class="search-bar form-control w-50" placeholder="Pretraga...">
+        <div class="user-profile">
+            <a href="prijava.html" class="text-white">Prijava</a>
         </div>
     </div>
-    
-    <footer>
-        <p>&copy; 2025 Vaša Kompanija</p>
-    </footer>
 
-    <script>
-        document.getElementById('toggle-link').addEventListener('click', function(event) {
-            event.preventDefault();
-            var formTitle = document.getElementById('form-title');
-            var emailField = document.getElementById('email');
-            var submitBtn = document.getElementById('submit-btn');
-            var toggleLink = document.getElementById('toggle-link');
+    <!-- Navigation -->
+    <div class="navbar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="nav-link" href="pocetna.html">Početna</a>
+            <a class="nav-link" href="sortiranje.html">Sortiranje</a>
+            <a class="nav-link" href="filtriranje.html">Filtriranje</a>
+            <a class="nav-link" href="napravi_recenziju.html">Napravi recenziju</a>
+        </nav>
+    </div>
 
-            if (formTitle.innerText === 'Prijava') {
-                formTitle.innerText = 'Registracija';
-                emailField.style.display = 'block';
-                submitBtn.innerText = 'Registriraj se';
-                toggleLink.innerText = 'Već imaš račun? Prijavi se';
-            } else {
-                formTitle.innerText = 'Prijava';
-                emailField.style.display = 'none';
-                submitBtn.innerText = 'Prijavi se';
-                toggleLink.innerText = 'Nemaš račun? Registriraj se';
-            }
-        });
-    </script>
+    <!-- Main Content: Login and Registration Forms -->
+    <div class="form-container">
+        <!-- Login Form -->
+        <h2>Prijava</h2>
+        <form action="prijava.php" method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email adresa</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Unesite email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Lozinka</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Unesite lozinku" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Prijavi se</button>
+        </form>
+
+        <hr>
+
+        <!-- Registration Form -->
+        <h2>Registracija</h2>
+        <form action="registracija.php" method="POST">
+            <div class="mb-3">
+                <label for="ime" class="form-label">Ime</label>
+                <input type="text" class="form-control" id="ime" name="ime" placeholder="Unesite ime" required>
+            </div>
+            <div class="mb-3">
+                <label for="email_reg" class="form-label">Email adresa</label>
+                <input type="email" class="form-control" id="email_reg" name="email" placeholder="Unesite email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password_reg" class="form-label">Lozinka</label>
+                <input type="password" class="form-control" id="password_reg" name="password" placeholder="Unesite lozinku" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registruj se</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <a class="nav-link" href="kontakt_telefon.html">Kontakt telefon</a>
+            <a class="nav-link" href="kontakt_email.html">Kontakt email</a>
+            <a class="nav-link" href="društvene_mreže.html">Društvene mreže</a>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
