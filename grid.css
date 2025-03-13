@@ -9,7 +9,7 @@
         grid-gap: 10px;
         background-color: #bed9f5;
         padding: 20px;
-        min-height: 100vh;
+        min-height: 50vh;
         width: 100%;
     }
 
@@ -65,6 +65,7 @@
         width: 100%;
         max-width: 500px;
         justify-self: center;
+        min-height: 500px;
     }
 
     .footer {
